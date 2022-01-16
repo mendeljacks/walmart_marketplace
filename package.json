@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "download_schema": "node -e \"console.log('see @whitebox-co/walmart-marketplace-api')\"",
     "generate_connector": "node -r sucrase/register -e \"require(`./src/generate_walmart_connector.ts`).generate_walmart_connector()\"",
-    "build": "tsc src/walmart_connector --declaration --outdir lib --target es6",
+    "build": "tsc src/walmart_connector --declaration --outdir lib --target es2017",
     "deploy": "node -e \"require('./.github/deploy.js').deploy()\""
   },
   "repository": {
