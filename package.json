@@ -1,45 +1,49 @@
 {
-  "name": "walmart_marketplace",
-  "version": "1.0.4",
-  "description": "Walmart Marketplace CA\r Generated Connector",
-  "main": "build/walmart_connector.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "download_schema": "node -e \"console.log('see @whitebox-co/walmart-marketplace-api')\"",
-    "generate_connector": "node -r sucrase/register -e \"require(`./src/generate_walmart_connector.ts`).generate_walmart_connector()\"",
-    "build": "tsc",
-    "deploy": "node -e \"require('./.github/deploy.js').deploy()\""
-  },
-  "files": [
-    "build/**/*"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/mendeljacks/walmart_marketplace.git"
-  },
-  "keywords": [
-    "Walmart",
-    "Marketplace",
-    "CA"
-  ],
-  "author": "Mendel Jacks",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/mendeljacks/walmart_marketplace/issues"
-  },
-  "homepage": "https://github.com/mendeljacks/walmart_marketplace#readme",
-  "nodemonConfig": {
-    "ignore": [
-      "node_modules",
-      "walmart_connector.ts",
-      "build"
+    "name": "walmart_marketplace",
+    "version": "1.0.6",
+    "description": "Walmart Marketplace CA\r Generated Connector",
+    "main": "build/walmart_connector.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "download_schema": "node -e \"console.log('see @whitebox-co/walmart-marketplace-api')\"",
+        "generate_connector": "node -r sucrase/register -e \"require(`./src/generate_walmart_connector.ts`).generate_walmart_connector()\"",
+        "build": "tsc",
+        "deploy": "node -e \"require('./.github/deploy.js').deploy()\"",
+        "prepare": "husky install",
+        "bump": "node -e \"const fs = require('fs'); const json = JSON.parse(fs.readFileSync('package.json', 'utf-8')); const new_json = {...json, version: json.version.split('.').map((el, i) => i==2 ? Number(el)+1 : el).join('.') } ;   fs.writeFileSync('package.json',  JSON.stringify(new_json, null, 4))\""
+    },
+    "files": [
+        "build/**/*"
     ],
-    "watch": [
-      "./"
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/mendeljacks/walmart_marketplace.git"
+    },
+    "keywords": [
+        "Walmart",
+        "Marketplace",
+        "CA"
     ],
-    "ext": "ts, js, json"
-  },
-  "devDependencies": {
-    "@jsdevtools/npm-publish": "^1.4.3"
-  }
+    "author": "Mendel Jacks",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/mendeljacks/walmart_marketplace/issues"
+    },
+    "homepage": "https://github.com/mendeljacks/walmart_marketplace#readme",
+    "nodemonConfig": {
+        "ignore": [
+            "node_modules",
+            "walmart_connector.ts",
+            "build"
+        ],
+        "watch": [
+            "./"
+        ],
+        "ext": "ts, js, json"
+    },
+    "devDependencies": {
+        "@jsdevtools/npm-publish": "^1.4.3",
+        "husky": "^7.0.4",
+        "typescript": "^4.5.4"
+    }
 }
