@@ -2,7 +2,7 @@
   "name": "walmart_marketplace",
   "version": "1.0.0",
   "description": "Walmart Marketplace CA\r Generated Connector",
-  "main": "lib/index.js",
+  "main": "lib/walmart_connector.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "download_schema": "node -e \"console.log('see @whitebox-co/walmart-marketplace-api')\"",
