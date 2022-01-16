@@ -1,6 +1,6 @@
 {
   "name": "walmart_marketplace",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Walmart Marketplace CA\r Generated Connector",
   "main": "lib/walmart_connector.js",
   "scripts": {
