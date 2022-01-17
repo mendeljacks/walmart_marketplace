@@ -1,0 +1,41 @@
+{
+  "name": "walmart_marketplace",
+  "version": "1.0.0",
+  "description": "Walmart Marketplace CA\r Generated Connector",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "download_schema": "node -e \"console.log('see @whitebox-co/walmart-marketplace-api')\"",
+    "generate_connector": "node -r sucrase/register -e \"require(`./src/generate_walmart_connector.ts`).generate_walmart_connector()\"",
+    "build": "tsc src/walmart_connector --declaration --outdir lib --target esnext",
+    "deploy": "node -e \"require('./.github/deploy.js').deploy()\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mendeljacks/walmart_marketplace.git"
+  },
+  "keywords": [
+    "Walmart",
+    "Marketplace",
+    "CA"
+  ],
+  "author": "Mendel Jacks",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mendeljacks/walmart_marketplace/issues"
+  },
+  "homepage": "https://github.com/mendeljacks/walmart_marketplace#readme",
+  "nodemonConfig": {
+    "ignore": [
+      "node_modules",
+      "walmart_connector.ts"
+    ],
+    "watch": [
+      "./"
+    ],
+    "ext": "ts, js, json"
+  },
+  "devDependencies": {
+    "@jsdevtools/npm-publish": "^1.4.3"
+  }
+}
