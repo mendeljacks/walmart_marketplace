@@ -2,8 +2,6 @@
 // Docs: https://developer.walmart.com/ca/ca-mp/
 // https://seller.walmart.ca/items-and-inventory/feed-status/item
 // @ts-ignore
-import { createSign, randomBytes } from 'crypto'
-// @ts-ignore
 import fs from 'fs'
 
 const snake_case = word => {
@@ -104,7 +102,11 @@ ${Object.keys(file.paths)
     }>`
                     : ''
             }) => {
-    const url = \`${url}${ param_to_obj(file, path, method, 'query').length ? '${json_to_query_string(query)}' : ''}\`
+    const url = \`${url}${
+                param_to_obj(file, path, method, 'query').length
+                    ? '${json_to_query_string(query)}'
+                    : ''
+            }\`
     const method = '${method}'
     const timestamp = Date.now()
     const enhanced_headers = {
@@ -117,7 +119,9 @@ ${Object.keys(file.paths)
         ...headers
     }
     
-    return { method, url, ${file.paths[path][method].requestBody?.required ? `data, ` : ''}headers: enhanced_headers }
+    return { method, url, ${
+        file.paths[path][method].requestBody?.required ? `data, ` : ''
+    }headers: enhanced_headers }
 }`
         })
     )

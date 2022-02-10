@@ -1,5 +1,5 @@
 // @ts-ignore
-import { createSign, randomBytes } from 'crypto'
+import { createSign, randomBytes } from 'crypto-browserify'
 
 export const json_to_query_string = json => {
     const str = Object.entries(json)
