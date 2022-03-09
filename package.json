@@ -6,7 +6,7 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "download_schema": "node -e \"console.log('see @whitebox-co/walmart-marketplace-api')\"",
-        "generate_connector": "node -r sucrase/register -e \"require(`./src/generate_walmart_connector.ts`).generate_walmart_connector()\"",
+        "generate_connector": "nodemon --exec \"node -r sucrase/register -e \\\"require('./src/generate_walmart_connector.ts').generate_walmart_connector()\\\"\" --ext ts --ignore walmart_connector.ts",
         "build": "tsc",
         "deploy": "node -e \"require('./.github/deploy.js').deploy()\"",
         "prepare": "husky install",
@@ -44,6 +44,7 @@
     "devDependencies": {
         "@jsdevtools/npm-publish": "^1.4.3",
         "husky": "^7.0.4",
+        "sucrase": "^3.20.3",
         "typescript": "^4.5.4"
     },
     "dependencies": {

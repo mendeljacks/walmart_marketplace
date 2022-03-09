@@ -1,4 +1,3 @@
-// nodemon --exec 'node -r sucrase/register -e "require(`./walmart/generate_walmart_connector.ts`).generate_walmart_connector()"' --ext ts --ignore walmart_connector.ts
 // Docs: https://developer.walmart.com/ca/ca-mp/
 // https://seller.walmart.ca/items-and-inventory/feed-status/item
 // @ts-ignore
@@ -28,6 +27,36 @@ const parameterize_path = path => {
         return char
     })
     return new_arr.join('')
+}
+
+const to_typescript_type = el => {
+    if (!el) return 'undefined'
+    if (el.type === 'integer') return 'number'
+
+    if (el.type === 'string' && el.enum) {
+        return el.enum.map(el => `'${el}'`).join(' | ')
+    }
+
+    if (el.type === 'object') {
+        const type = Object.keys(el.properties || {}).reduce((acc, val) => {
+            acc =
+                acc +
+                `${val.startsWith('.') ? `'${val}'` : val}${
+                    el.required?.includes(val) ? '' : '?'
+                }: ${to_typescript_type(el.properties[val])}, `
+            return acc
+        }, ``)
+        return `{${type}}`
+    }
+
+    if (el.type === 'array') {
+        return to_typescript_type(el.items) + '[]'
+
+        // const items = s.definitions[el.items['$ref']?.slice(14, Infinity)]
+        // return `Array<${to_typescript_type(items)}>`
+    }
+
+    return el.type
 }
 
 export const generate_walmart_connector = () => {
@@ -70,7 +99,13 @@ ${Object.keys(file.paths)
     .flatMap(path =>
         Object.keys(file.paths[path]).flatMap(method => {
             const url = `${file.servers[0].url}${parameterize_path(path)}`
-            return `export const ${snake_case(file.paths[path][method]?.operationId)} = (
+            const method_params = file.paths[path][method]
+            const fn_name = snake_case(method_params?.operationId)
+            const response_definition =
+                method_params?.responses['200']?.content?.['application/xml']?.schema
+            const response_type = to_typescript_type(response_definition)
+            return `export type ${fn_name + '_type'} = ${response_type}
+export const ${fn_name} = (
     auth: {
         walmart_consumer: string,
         walmart_channel: string,
