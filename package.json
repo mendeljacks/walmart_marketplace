@@ -1,6 +1,6 @@
 {
     "name": "walmart_marketplace",
-    "version": "1.0.8",
+    "version": "1.0.10",
     "description": "Walmart Marketplace CA\r Generated Connector",
     "main": "build/walmart_connector.js",
     "scripts": {
@@ -10,7 +10,7 @@
         "build": "tsc",
         "deploy": "node -e \"require('./.github/deploy.js').deploy()\"",
         "prepare": "husky install",
-        "bump": "node -e \"const fs = require('fs'); const json = JSON.parse(fs.readFileSync('package.json', 'utf-8')); const new_json = {...json, version: json.version.split('.').map((el, i) => i==2 ? Number(el)+1 : el).join('.') } ;   fs.writeFileSync('package.json',  JSON.stringify(new_json, null, 4))\""
+        "bump": "tsc && npm version patch --no-git-tag-version && git add package*.json && npm publish"
     },
     "files": [
         "build/**/*"
