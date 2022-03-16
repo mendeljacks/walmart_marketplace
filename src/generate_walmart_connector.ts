@@ -103,6 +103,8 @@ ${Object.keys(file.paths)
             const fn_name = snake_case(method_params?.operationId)
             const response_definition =
                 method_params?.responses['200']?.content?.['application/xml']?.schema
+            const body_definition = method_params?.requestBody?.content?.['application/xml']?.schema
+            const body_type = to_typescript_type(body_definition)
             const response_type = to_typescript_type(response_definition)
             return `export type ${fn_name + '_type'} = ${response_type}
 export const ${fn_name} = (
@@ -127,7 +129,7 @@ export const ${fn_name} = (
             }${
                 file.paths[path][method].requestBody?.required
                     ? `
-    data: any,`
+    data: ${body_definition ? body_type : 'any'},`
                     : ''
             }${
                 param_to_obj(file, path, method, 'header').length
